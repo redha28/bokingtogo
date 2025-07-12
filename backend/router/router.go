@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/redha28/bookingtogo/internal/handlers"
-	"github.com/redha28/bookingtogo/internal/services"
+	"github.com/redha28/bookingtogo/backend/internal/handlers"
+	"github.com/redha28/bookingtogo/backend/internal/services"
 	"gorm.io/gorm"
 
 	"github.com/gorilla/mux"

@@ -7,8 +7,8 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
-	customerdto "github.com/redha28/bookingtogo/internal/dto/customer"
-	"github.com/redha28/bookingtogo/internal/services"
+	customerdto "github.com/redha28/bookingtogo/backend/internal/dto/customer"
+	"github.com/redha28/bookingtogo/backend/internal/services"
 )
 
 type CustomerHandler struct {

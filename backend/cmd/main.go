@@ -5,10 +5,10 @@ import (
 	"net/http"
 
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/redha28/bookingtogo/config"
-	_ "github.com/redha28/bookingtogo/docs"
-	"github.com/redha28/bookingtogo/internal/entities"
-	"github.com/redha28/bookingtogo/router"
+	"github.com/redha28/bookingtogo/backend/config"
+	_ "github.com/redha28/bookingtogo/backend/docs"
+	"github.com/redha28/bookingtogo/backend/internal/entities"
+	"github.com/redha28/bookingtogo/backend/router"
 )
 
 // @title Customer Family API

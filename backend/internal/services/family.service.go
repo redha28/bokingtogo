@@ -3,8 +3,8 @@ package services
 import (
 	"context"
 
-	familydto "github.com/redha28/bookingtogo/internal/dto/family"
-	"github.com/redha28/bookingtogo/internal/entities"
+	familydto "github.com/redha28/bookingtogo/backend/internal/dto/family"
+	"github.com/redha28/bookingtogo/backend/internal/entities"
 	"gorm.io/gorm"
 )
 

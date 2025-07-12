@@ -7,8 +7,8 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
-	familydto "github.com/redha28/bookingtogo/internal/dto/family"
-	"github.com/redha28/bookingtogo/internal/services"
+	familydto "github.com/redha28/bookingtogo/backend/internal/dto/family"
+	"github.com/redha28/bookingtogo/backend/internal/services"
 )
 
 type FamilyHandler struct {

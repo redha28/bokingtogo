@@ -1,0 +1,678 @@
+basePath: /api
+definitions:
+  customerdto.CreateCustomerRequest:
+    properties:
+      cst_dob:
+        type: string
+      cst_email:
+        type: string
+      cst_name:
+        type: string
+      cst_phoneNum:
+        type: string
+      family_list:
+        items:
+          $ref: '#/definitions/customerdto.FamilyRequest'
+        type: array
+      nationality_id:
+        type: integer
+    required:
+    - cst_dob
+    - cst_email
+    - cst_name
+    - cst_phoneNum
+    - nationality_id
+    type: object
+  customerdto.CustomerData:
+    properties:
+      cst_dob:
+        type: string
+      cst_email:
+        type: string
+      cst_id:
+        type: integer
+      cst_name:
+        type: string
+      cst_phoneNum:
+        type: string
+      family_list:
+        items:
+          $ref: '#/definitions/customerdto.FamilyResponse'
+        type: array
+      nationality_id:
+        type: integer
+    type: object
+  customerdto.CustomerListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/customerdto.CustomerData'
+        type: array
+    type: object
+  customerdto.CustomerResponse:
+    properties:
+      data:
+        $ref: '#/definitions/customerdto.CustomerData'
+    type: object
+  customerdto.FamilyRequest:
+    properties:
+      fl_dob:
+        type: string
+      fl_name:
+        type: string
+      fl_relation:
+        type: string
+    required:
+    - fl_dob
+    - fl_name
+    - fl_relation
+    type: object
+  customerdto.FamilyResponse:
+    properties:
+      fl_dob:
+        type: string
+      fl_name:
+        type: string
+      fl_relation:
+        type: string
+    type: object
+  familydto.CreateFamilyRequest:
+    properties:
+      cst_id:
+        type: integer
+      fl_dob:
+        type: string
+      fl_name:
+        type: string
+      fl_relation:
+        type: string
+    required:
+    - cst_id
+    - fl_dob
+    - fl_name
+    - fl_relation
+    type: object
+  familydto.FamilyData:
+    properties:
+      cst_id:
+        type: integer
+      fl_dob:
+        type: string
+      fl_id:
+        type: integer
+      fl_name:
+        type: string
+      fl_relation:
+        type: string
+    type: object
+  familydto.FamilyListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/familydto.FamilyData'
+        type: array
+    type: object
+  familydto.FamilyResponse:
+    properties:
+      data:
+        $ref: '#/definitions/familydto.FamilyData'
+    type: object
+  familydto.UpdateFamilyRequest:
+    properties:
+      fl_dob:
+        type: string
+      fl_name:
+        type: string
+      fl_relation:
+        type: string
+    required:
+    - fl_dob
+    - fl_name
+    - fl_relation
+    type: object
+  nationalitydto.CreateNationalityRequest:
+    properties:
+      nationality_code:
+        type: string
+      nationality_name:
+        type: string
+    required:
+    - nationality_code
+    - nationality_name
+    type: object
+  nationalitydto.NationalityData:
+    properties:
+      nationality_code:
+        type: string
+      nationality_id:
+        type: integer
+      nationality_name:
+        type: string
+    type: object
+  nationalitydto.NationalityListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/nationalitydto.NationalityData'
+        type: array
+    type: object
+  nationalitydto.NationalityResponse:
+    properties:
+      data:
+        $ref: '#/definitions/nationalitydto.NationalityData'
+    type: object
+  nationalitydto.UpdateNationalityRequest:
+    properties:
+      nationality_code:
+        type: string
+      nationality_name:
+        type: string
+    required:
+    - nationality_code
+    - nationality_name
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample API for managing customers and their family members.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Customer Family API
+  version: "1.0"
+paths:
+  /customers:
+    get:
+      consumes:
+      - application/json
+      description: Get all customers with their family members
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customerdto.CustomerListResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all customers
+      tags:
+      - customers
+    post:
+      consumes:
+      - application/json
+      description: Create a new customer with family members
+      parameters:
+      - description: Customer data
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/customerdto.CreateCustomerRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/customerdto.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new customer
+      tags:
+      - customers
+  /customers/{customer_id}/families:
+    get:
+      consumes:
+      - application/json
+      description: Get all family members for a specific customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/familydto.FamilyListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get family members by customer ID
+      tags:
+      - families
+  /customers/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a customer by ID and all family members
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete customer by ID
+      tags:
+      - customers
+    get:
+      consumes:
+      - application/json
+      description: Get a customer by ID with family members
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customerdto.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get customer by ID
+      tags:
+      - customers
+    put:
+      consumes:
+      - application/json
+      description: Update a customer by ID with family members
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Customer data
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/customerdto.CreateCustomerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customerdto.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update customer by ID
+      tags:
+      - customers
+  /families:
+    post:
+      consumes:
+      - application/json
+      description: Create a new family member
+      parameters:
+      - description: Family data
+        in: body
+        name: family
+        required: true
+        schema:
+          $ref: '#/definitions/familydto.CreateFamilyRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/familydto.FamilyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new family member
+      tags:
+      - families
+  /families/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a family member by ID
+      parameters:
+      - description: Family ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete family member by ID
+      tags:
+      - families
+    get:
+      consumes:
+      - application/json
+      description: Get a family member by ID
+      parameters:
+      - description: Family ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/familydto.FamilyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get family member by ID
+      tags:
+      - families
+    put:
+      consumes:
+      - application/json
+      description: Update a family member by ID
+      parameters:
+      - description: Family ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Family data
+        in: body
+        name: family
+        required: true
+        schema:
+          $ref: '#/definitions/familydto.UpdateFamilyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/familydto.FamilyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update family member by ID
+      tags:
+      - families
+  /nationalities:
+    get:
+      consumes:
+      - application/json
+      description: Get all nationalities
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/nationalitydto.NationalityListResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all nationalities
+      tags:
+      - nationalities
+    post:
+      consumes:
+      - application/json
+      description: Create a new nationality
+      parameters:
+      - description: Nationality data
+        in: body
+        name: nationality
+        required: true
+        schema:
+          $ref: '#/definitions/nationalitydto.CreateNationalityRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/nationalitydto.NationalityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new nationality
+      tags:
+      - nationalities
+  /nationalities/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a nationality by ID
+      parameters:
+      - description: Nationality ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete nationality by ID
+      tags:
+      - nationalities
+    get:
+      consumes:
+      - application/json
+      description: Get a nationality by ID
+      parameters:
+      - description: Nationality ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/nationalitydto.NationalityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get nationality by ID
+      tags:
+      - nationalities
+    put:
+      consumes:
+      - application/json
+      description: Update a nationality by ID
+      parameters:
+      - description: Nationality ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Nationality data
+        in: body
+        name: nationality
+        required: true
+        schema:
+          $ref: '#/definitions/nationalitydto.UpdateNationalityRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/nationalitydto.NationalityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update nationality by ID
+      tags:
+      - nationalities
+swagger: "2.0"

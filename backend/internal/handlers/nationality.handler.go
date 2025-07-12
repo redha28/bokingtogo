@@ -7,8 +7,8 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
-	nationalitydto "github.com/redha28/bookingtogo/backend/internal/dto/nationality"
-	"github.com/redha28/bookingtogo/backend/internal/services"
+	nationalitydto "github.com/redha28/bokingtogo/backend/internal/dto/nationality"
+	"github.com/redha28/bokingtogo/backend/internal/services"
 )
 
 type NationalityHandler struct {

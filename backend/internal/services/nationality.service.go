@@ -3,8 +3,8 @@ package services
 import (
 	"context"
 
-	nationalitydto "github.com/redha28/bookingtogo/backend/internal/dto/nationality"
-	"github.com/redha28/bookingtogo/backend/internal/entities"
+	nationalitydto "github.com/redha28/bokingtogo/backend/internal/dto/nationality"
+	"github.com/redha28/bokingtogo/backend/internal/entities"
 	"gorm.io/gorm"
 )
 

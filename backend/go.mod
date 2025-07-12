@@ -1,4 +1,4 @@
-module github.com/redha28/bookingtogo/backend
+module github.com/redha28/bokingtogo/backend
 
 go 1.23.5
 
